@@ -210,23 +210,6 @@ ul.alert {
 /*----------------------------------------------------
 Misc
 -----------------------------------------------------*/
-/* http://nicolasgallagher.com/micro-clearfix-hack/ */
-.cf:before,
-.cf:after {
-    content: " ";
-    /* 1 */
-    display: table;
-    /* 2 */
-}
-
-.cf:after {
-    clear: both;
-}
-
-.cf {
-    *zoom: 1;
-}
-
 .flash-alert {
     background-color: yellow;
     width: 100%;
