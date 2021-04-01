@@ -4,6 +4,10 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\PracticeController;
+
+Route::any('/practice/{n?}', [PracticeController::class, 'index']);
+
 
 Route::get('/debug', function () {
     $debug = [
