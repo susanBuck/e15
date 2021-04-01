@@ -9,7 +9,7 @@ use Str;
 class PracticeController extends Controller
 {
     /**
-    *
+    * Demonstrating deleting
     */
     public function practice7()
     {
@@ -26,7 +26,7 @@ class PracticeController extends Controller
 
 
     /**
-    *
+    * Demonstrating updating
     */
     public function practice6()
     {
@@ -49,7 +49,7 @@ class PracticeController extends Controller
 
 
     /**
-    *
+    * Demonstrating querying for a single row
     */
     public function practice5()
     {
@@ -59,12 +59,14 @@ class PracticeController extends Controller
     }
 
 
+    /**
+     * Demonstrating querying for multiple rows
+     */
     public function practice4()
     {
         //$book = new Book();
         //$books = Book::where('title', 'LIKE', '%Harry Potter%')->get();
         $books = Book::where('title', 'LIKE', '%Harry Potter%')->where('published_year', '>=', 1998)->get();
-
 
         if ($books->isEmpty()) {
             dump('No matches found');
@@ -77,6 +79,9 @@ class PracticeController extends Controller
         }
     }
     
+    /**
+     * Demonstrating adding a new row
+     */
     public function practice3()
     {
         # Instantiate a new Book Model object
@@ -112,7 +117,6 @@ class PracticeController extends Controller
     
     /**
      * First practice example
-     * GET /practice/1
      */
     public function practice1()
     {
