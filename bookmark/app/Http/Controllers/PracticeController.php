@@ -9,6 +9,48 @@ use Str;
 class PracticeController extends Controller
 {
     /**
+        *
+        */
+    public function practice8()
+    {
+        $books = Book::all();
+
+        # This will output a JSON string
+        echo $books;
+
+        //$results = Book::all();
+        //dump($results); # Shows an object of type Illuminate\Database\Eloquent\Collection that contains multiple Book objects
+
+        //$results = Book::where('published_year', '>', 1990)->get();
+        //dump($results); # Shows an object of type Illuminate\Database\Eloquent\Collection that contains multiple Book objects
+
+        // # Even if our query finds just 1 result, *get* still yields a Collection, it'll just be a Collection of 1 object:
+        // $books = Book::where('title', '=', 'The Bell Jar')->get();
+        // foreach ($books as $book) {
+        //     $book->title = 'abc';
+        //     $book->save();
+        // }
+        // dump($books); # Shows an object of type Illuminate\Database\Eloquent\Collection that contains 1 Book object
+
+        // # Similarly, if our query does not find any results, *get* still yields a Collection, it’ll just be empty
+        // $results = Book::where('author', '=', 'Amy Tan')->get();
+        // dump($results); # Empty collection
+
+        // # Even if we limit our query to 1 book, because we're using the *get* method, we will get a Collection in return
+        // $results = Book::limit(1)->get();
+
+        // $book = Book::first();
+        // $book->title = 'abc';
+        // $book->save();
+        // dump($book); # Shows an object of type App\Models\Book
+
+        // $results = Book::find(1);
+        // dump($results); # Shows an object of type App\Models\Book
+    }
+
+
+
+    /**
     * Demonstrating deleting
     */
     public function practice7()

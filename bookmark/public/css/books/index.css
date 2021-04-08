@@ -5,6 +5,16 @@
     text-align: center;
 }
 
+#newBooks {
+    background-color: lightyellow;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+#newBooks ul {
+    list-style-type: none;
+}
+
 a:link.book,
 a:visited.book,
 a:active.book,
