@@ -84,8 +84,10 @@ class BookController extends Controller
     {
         $books = Book::orderBy('title', 'ASC')->get();
 
+        # Query the database for new books
         //$newBooks = Book::orderBy('id', 'DESC')->limit(3)->get();
         
+        # vs. Query the collection for new books
         $newBooks = $books->sortByDesc('id')->take(3);
 
         return view('books/index', ['books' => $books, 'newBooks' => $newBooks]);
@@ -97,8 +99,12 @@ class BookController extends Controller
      */
     public function show($slug)
     {
-        $book = Book::where('slug', '=', $slug)->first();
+        $book = Book::findBySlug($slug);
 
+        if (!$book) {
+            return redirect('/books')->with(['flash-alert' => 'Book not found.']);
+        }
+    
         return view('books/show', [
             'book' => $book,
         ]);
@@ -118,7 +124,7 @@ class BookController extends Controller
      */
     public function edit(Request $request, $slug)
     {
-        $book = Book::where('slug', '=', $slug)->first();
+        $book = Book::findBySlug($slug);
 
         if (!$book) {
             return redirect('/books')->with(['flash-alert' => 'Book not found.']);
@@ -132,7 +138,7 @@ class BookController extends Controller
      */
     public function update(Request $request, $slug)
     {
-        $book = Book::where('slug', '=', $slug)->first();
+        $book = Book::findBySlug($slug);
 
         $request->validate([
             'title' => 'required',
@@ -172,7 +178,7 @@ class BookController extends Controller
             ]);
         }
 
-        return view('books.delete', ['book' => $book]);
+        return view('books/delete', ['book' => $book]);
     }
 
     /**

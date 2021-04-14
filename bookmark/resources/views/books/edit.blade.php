@@ -1,4 +1,4 @@
-{{-- /resources/views/books/create.blade.php --}}
+{{-- /resources/views/books/edit.blade.php --}}
 @extends('layouts/main')
 
 @section('title')

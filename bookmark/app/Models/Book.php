@@ -16,4 +16,9 @@ class Book extends Model
     {
         return self::where('slug', '=', $slug)->first();
     }
+
+    public function isModern()
+    {
+        return $this->published_year > 2000;
+    }
 }
