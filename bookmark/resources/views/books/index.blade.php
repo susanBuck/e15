@@ -17,7 +17,7 @@ No books have been added yet...
 @else
 <div id='newBooks'>
     <h2>New Books</h2>
-    <ul>
+    <ul class='clean-list'>
         @foreach($newBooks as $book)
         <li><a href='/books/{{ $book->slug }}'>{{ $book->title }}</a></li>
         @endforeach

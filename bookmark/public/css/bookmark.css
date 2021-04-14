@@ -205,6 +205,10 @@ ul.alert {
     list-style-type: none;
 }
 
+
+/*----------------------------------------------------
+MISC
+-----------------------------------------------------*/
 .flash-alert {
     background-color: yellow;
     width: 100%;
@@ -214,4 +218,15 @@ ul.alert {
     padding: 5px;
     font-weight: bold;
     text-align: center;
+}
+
+.clean-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.clean-list li {
+    padding: 0;
+    margin: 0;
 }

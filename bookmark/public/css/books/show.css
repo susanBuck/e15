@@ -11,3 +11,16 @@ img.cover {
     height: 175px;
     margin-bottom: 25px;
 }
+
+.bookActions {
+    list-style-type: none;
+}
+
+.bookActions li {
+    display: inline-block;
+}
+
+.bookActions li a {
+    text-decoration: none;
+    padding-right: 20px;
+}

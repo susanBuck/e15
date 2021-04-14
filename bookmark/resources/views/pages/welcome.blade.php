@@ -25,7 +25,7 @@
             Search type:
         </label>
 
-        <input type='radio' name='searchType' id='title' value='title' {{ (old('searchType') == 'title') ? 'checked' : '' }}>
+        <input type='radio' name='searchType' id='title' value='title' {{ (old('searchType', 'title') == 'title' ) ? 'checked' : '' }}>
         <label for='title'> Title</label>
 
         <input type='radio' name='searchType' id='author' value='author' {{ (old('searchType') == 'author') ? 'checked' : '' }}>
@@ -57,7 +57,7 @@
     {{ count($searchResults) }}
     {{ Str::plural('Result', count($searchResults)) }}:
 
-    <ul>
+    <ul class='clean-list'>
         @foreach($searchResults as $slug => $book)
         <li><a href='/books/{{ $slug }}'> {{ $book['title'] }}</a></li>
         @endforeach

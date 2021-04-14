@@ -38,3 +38,12 @@ Route::get('/books/{slug}/edit', [BookController::class, 'edit']);
 
 # Process the form to edit a specific book
 Route::put('/books/{slug}', [BookController::class, 'update']);
+
+/**
+ * Book - DELETE
+ */
+# Show the page to confirm deletion of a book
+Route::get('/books/{slug}/delete', [BookController::class, 'delete']);
+
+# Process the deletion of a book
+Route::delete('/books/{slug}', [BookController::class, 'destroy']);
