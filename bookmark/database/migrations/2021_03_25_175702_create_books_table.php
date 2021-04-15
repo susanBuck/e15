@@ -23,9 +23,6 @@ class CreateBooksTable extends Migration
             // title VARCHAR
             $table->string('title');
 
-            // author VARCHAR
-            $table->string('author');
-
             // published_year SMALLINT
             $table->smallInteger('published_year');
 

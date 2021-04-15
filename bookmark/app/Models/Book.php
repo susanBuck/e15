@@ -21,4 +21,11 @@ class Book extends Model
     {
         return $this->published_year > 2000;
     }
+
+    public function author()
+    {
+        # Book belongs to Author
+        # Define an inverse one-to-many relationship.
+        return $this->belongsTo('App\Models\Author');
+    }
 }

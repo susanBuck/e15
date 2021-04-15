@@ -80,7 +80,7 @@ class BookController extends Controller
      * GET /books
      * Show all the books
      */
-    public function index()
+    public function index(Request $request)
     {
         $books = Book::orderBy('title', 'ASC')->get();
 
