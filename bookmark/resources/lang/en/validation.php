@@ -148,7 +148,8 @@ return [
     */
 
     'attributes' => [
-        'slug' => 'Short URL'
+        'slug' => 'Short URL',
+        'author_id' => 'Author'
     ],
 
 ];

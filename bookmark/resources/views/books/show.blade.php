@@ -17,7 +17,8 @@ Book not found. <a href='/books'>Check out the other books in our library...</a>
 
 <h1>{{ $book->title }}</h1>
 
-<p>By {{ $book->author }} ({{ $book->published_year}})</p>
+<p>By {{ $book->author->first_name }} {{ $book->author->last_name }} ({{ $book->published_year}})</p>
+
 
 <a href='{{ $book->purchase_url }}'>Purchase...</a>
 

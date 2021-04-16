@@ -27,9 +27,14 @@ Add a book
     <input type='text' name='slug' id='slug' value='{{ old("slug") }}'>
     @include('includes/error-field', ['fieldName' => 'slug'])
 
-    <label for='author'>* Author</label>
-    <input type='text' name='author' id='author' value='{{ old("author") }}'>
-    @include('includes/error-field', ['fieldName' => 'author'])
+    <label for='author_id'>* Author</label>
+    <select name='author_id' id='author_id'>
+        <option value=''>Choose one...</option>
+        @foreach($authors as $author)
+        <option value='{{ $author->id }}'>{{ $author->last_name }}, {{ $author->first_name }}</option>
+        @endforeach
+    </select>
+    @include('includes/error-field', ['fieldName' => 'author_id'])
 
     <label for='published_year'>* Published Year (YYYY)</label>
     <input type='text' name='published_year' id='published_year' value='{{ old("published_year") }}'>
