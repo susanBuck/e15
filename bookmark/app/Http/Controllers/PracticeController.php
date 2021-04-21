@@ -7,9 +7,44 @@ use App\Models\Book;
 use Str;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Author;
+use App\Models\User;
 
 class PracticeController extends Controller
 {
+    public function practice16()
+    {
+        $user = User::where('email', '=', 'jamal@harvard.edu')->first();
+        $book = Book::where('title', '=', 'The Martian')->first();
+
+        $user->books()->save($book, ['notes' => 'I liked this book a lot.']);
+    }
+
+    public function practice15()
+    {
+        $books = Book::with('users')->get();
+
+        foreach ($books as $book) {
+            dump($book->title);
+            foreach ($book->users as $user) {
+                dump($user->toArray());
+            }
+        }
+    }
+
+    public function practice14()
+    {
+        $book = Book::where('title', '=', 'The Martian')->first();
+
+        dump($book->users->toArray());
+    }
+
+    public function practice13()
+    {
+        $user = User::where('email', '=', 'jamal@harvard.edu')->first();
+    
+        dump($user->books->toArray());
+    }
+    
     public function practice12()
     {
         # Eager load the author with the book
