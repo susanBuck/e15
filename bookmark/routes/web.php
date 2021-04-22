@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\PracticeController;
+use App\Http\Controllers\ListController;
 
 /**
  * Misc.
@@ -31,7 +32,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/books', [BookController::class, 'index']);
     Route::get('/search', [BookController::class, 'search']);
     Route::get('/books/{slug}', [BookController::class, 'show']);
-    Route::get('/list', [BookController::class, 'list']);
 
     /**
      * Book - UPDATE
@@ -50,4 +50,11 @@ Route::group(['middleware' => 'auth'], function () {
 
     # Process the deletion of a book
     Route::delete('/books/{slug}', [BookController::class, 'destroy']);
+
+    /**
+     * List
+     */
+    Route::get('/list', [ListController::class, 'show']);
+    Route::get('/list/{slug}/add', [ListController::class, 'add']);
+    Route::post('/list/{slug}/save', [ListController::class, 'save']);
 });
