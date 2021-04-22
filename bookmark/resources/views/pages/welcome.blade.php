@@ -7,12 +7,14 @@
 @section('content')
 
 @if(Auth::user())
-<h2>
+<h2 dusk='welcome-heading'>
     Hello {{ Auth::user()->name }}!
 </h2>
+@else
+<a href='/register' dusk='register-link'>Register now...</a>
 @endif
 
-<p>
+<p dusk='welcome-paragraph'>
     Welcome to Bookmark&mdash; an online book journal that lets you track and share a history of books you’ve read.
 </p>
 
