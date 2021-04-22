@@ -11,6 +11,46 @@ use App\Models\User;
 
 class PracticeController extends Controller
 {
+    /**
+     * Demonstrating how to do an update with a Many to Many relationship
+     */
+    public function practice18()
+    {
+        # As an example, grab a user we know has books on their list
+        $user = User::where('email', '=', 'jill@harvard.edu')->first();
+
+        # Grab the first book on their list
+        $book = $user->books()->first();
+
+        # Update and save the notes for this relationship
+        $book->pivot->notes = "New note...";
+        $book->pivot->save();
+
+        # Confirm it worked
+        return 'Update complete. Check the `book_user` table to confirm.';
+    }
+
+    /**
+     * Demonstrating how to do a delete with a Many to Many relationship
+     */
+    public function practice17()
+    {
+        # As an example, grab a user we know has books on their list
+        $user = User::where('email', '=', 'jill@harvard.edu')->first();
+
+        # Grab the first book on their list
+        $book = $user->books()->first();
+
+        # Delete the relationship
+        $book->pivot->delete();
+
+        # Confirm it worked
+        return 'Delete complete. Check the `book_user` table to confirm.';
+    }
+    
+    /**
+     * Demonstrating how to persist a new Many to Many relationship
+     */
     public function practice16()
     {
         $user = User::where('email', '=', 'jamal@harvard.edu')->first();
@@ -19,6 +59,9 @@ class PracticeController extends Controller
         $user->books()->save($book, ['notes' => 'I liked this book a lot.']);
     }
 
+    /**
+     * Demonstrating how to eager load a Many to Many relationship
+     */
     public function practice15()
     {
         $books = Book::with('users')->get();
@@ -31,6 +74,10 @@ class PracticeController extends Controller
         }
     }
 
+    /**
+     * Demonstrating how to query a Many to many relationship
+     * from the perspective of books
+     */
     public function practice14()
     {
         $book = Book::where('title', '=', 'The Martian')->first();
@@ -38,6 +85,10 @@ class PracticeController extends Controller
         dump($book->users->toArray());
     }
 
+    /**
+    * Demonstrating how to query a Many to many relationship
+    * from the perspective of users
+    */
     public function practice13()
     {
         $user = User::where('email', '=', 'jamal@harvard.edu')->first();
@@ -45,6 +96,9 @@ class PracticeController extends Controller
         dump($user->books->toArray());
     }
     
+    /**
+     * Demonstrating eager loading
+     */
     public function practice12()
     {
         # Eager load the author with the book
@@ -61,7 +115,9 @@ class PracticeController extends Controller
         dump($books->toArray());
     }
 
-    
+    /**
+     * Demonstrating querying a One to Many relationship
+     */
     public function practice11()
     {
         # Get an example book
@@ -76,6 +132,9 @@ class PracticeController extends Controller
         dump($book->toArray());
     }
     
+    /**
+     * Demonstrating persisting a One to Many relationship
+     */
     public function practice10()
     {
         $author = Author::where('first_name', '=', 'J.K.')->first();
@@ -93,6 +152,9 @@ class PracticeController extends Controller
         dump($book->toArray());
     }
     
+    /**
+     * Demonstrating accessing the currently logged in user
+     */
     public function practice9(Request $request)
     {
         # Retrieve the currently authenticated user via the Auth facade
@@ -110,7 +172,6 @@ class PracticeController extends Controller
             dump(Auth::user()->id);
         }
     }
-
 
     /**
     * Demonstrating Collections

@@ -1,5 +1,9 @@
 @extends('layouts/main')
 
+@section('head')
+<link href='/css/list/show.css' rel='stylesheet'>
+@endsection
+
 @section('title')
 Your List
 @endsection
@@ -21,15 +25,18 @@ Your List
     <p>By {{ $book->author->first_name. ' ' . $book->author->last_name }}</p>
     @endif
 
-    {{-- In the following two paragraphs, observe how `$book->pivot` is used to access 
-    details (`created_at` and `notes`) from the book to user relationship --}}
-    <p class='notes'>
-        {{ $book->pivot->notes }}
-    </p>
+    {{-- TODO: Finish the update note feature --}}
+    <form method='POST' action='#'>
+        <textarea class='notes'>{{ $book->pivot->notes }}</textarea>
+        <input type='submit' class='btn btn-primary' value='Update notes'>
+    </form>
 
     <p class='added'>
         Added {{ $book->pivot->created_at->diffForHumans() }}
     </p>
+
+    {{-- TODO: Finish the “Remove from list” feature" --}}
+    <a href='#'><i class='fa fa-minus-circle'></i> Remove from your list</a>
 </div>
 @endforeach
 

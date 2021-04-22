@@ -182,6 +182,9 @@ class BookController extends Controller
     public function destroy($slug)
     {
         $book = Book::findBySlug($slug);
+
+        $book->users()->detach();
+
         $book->delete();
 
         return redirect('/books')->with([
