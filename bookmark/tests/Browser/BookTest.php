@@ -103,4 +103,53 @@ class BookTest extends DuskTestCase
                     ->assertPresent('@error-field-slug');
         });
     }
+
+    /**
+     *
+     */
+    public function testDeletingBook()
+    {
+        $this->browse(function (Browser $browser) {
+            
+            # Generate an existing book
+            $book = Book::factory()->create();
+            
+            # Create a user to create a new book as
+            $user = User::factory()->create();
+            
+            $browser->loginAs($user->id)
+                    ->visit('/books/'.$book->slug)
+                    
+                    ->click('@delete-button')
+                    ->click('@confirm-delete-button')
+                    ->assertSeeIn('@flash-alert', $book->title)
+                    ->assertSeeIn('@flash-alert', 'removed')
+                    ->assertPresent('@empty-books');
+        });
+    }
+
+    /**
+     * @group focus
+     */
+    public function testUpdatingBook()
+    {
+        $this->browse(function (Browser $browser) {
+            
+            # Generate an existing book
+            $book = Book::factory()->create();
+
+            $updatedTitle = $book->title.' 2';
+            
+            # Create a user to create a new book as
+            $user = User::factory()->create();
+            
+            $browser->loginAs($user->id)
+                    ->visit('/books/'.$book->slug)
+                    ->click('@edit-button')
+                    ->type('@title-input', $updatedTitle)
+                    ->click('@update-button')
+                    ->assertSeeIn('@flash-alert', 'Your updates were saved')
+                    ->assertSee($updatedTitle);
+        });
+    }
 }

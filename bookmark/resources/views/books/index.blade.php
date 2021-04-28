@@ -13,7 +13,7 @@ All Books
 <h1>All Books</h1>
 
 @if(count($books) == 0)
-No books have been added yet...
+<p dusk='empty-books'>No books have been added yet...</p>
 @else
 <div id='newBooks'>
     <h2>New Books</h2>
@@ -24,7 +24,7 @@ No books have been added yet...
     </ul>
 </div>
 
-<div id='books'>
+<div id='books' dusk='books'>
     @foreach($books as $book)
     <a class='book' href='/books/{{ $book->slug }}'>
         <h3>{{ $book->title }}</h3>

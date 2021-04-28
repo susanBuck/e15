@@ -17,7 +17,7 @@ Confirm deletion: {{ $book->title }}
 <form method='POST' action='/books/{{ $book->slug }}'>
     {{ method_field('delete') }}
     {{ csrf_field() }}
-    <button type='submit' class='btn btn-danger btn-small'>Yes, delete it!</button>
+    <button type='submit' class='btn btn-danger btn-small' dusk='confirm-delete-button'>Yes, delete it!</button>
 </form>
 
 <p class='cancel'>
