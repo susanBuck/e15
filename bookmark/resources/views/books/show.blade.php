@@ -17,7 +17,7 @@ Book not found. <a href='/books'>Check out the other books in our library...</a>
 
 <h1>{{ $book->title }}</h1>
 
-<p>By {{ $book->author->first_name }} {{ $book->author->last_name }} ({{ $book->published_year}})</p>
+<p dusk='author-info'>By {{ $book->author->first_name }} {{ $book->author->last_name }} ({{ $book->published_year}})</p>
 
 
 <a href='{{ $book->purchase_url }}'>Purchase...</a>
@@ -29,7 +29,12 @@ Book not found. <a href='/books'>Check out the other books in our library...</a>
 
 
 <ul class='bookActions'>
-    <li><a href='/list/{{ $book->slug }}/add'><i class="fa fa-plus"></i> Add to your list</a>
+    @if($onList)
+    @include('includes/remove-from-list')
+    @else
+    <li>
+        <a href='/list/{{ $book->slug }}/add' dusk='add-to-list-button'><i class="fa fa-plus"></i> Add to your list</a>
+        @endif
     <li><a href='/books/{{ $book->slug }}/edit'><i class="fa fa-edit"></i> Edit</a>
     <li><a href='/books/{{ $book->slug }}/delete'><i class="fa fa-trash"></i> Delete</a>
 </ul>

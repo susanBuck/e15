@@ -13,7 +13,7 @@
 <body>
 
     @if(session('flash-alert'))
-    <div class='flash-alert'>
+    <div class='flash-alert' dusk='flash-alert'>
         {{ session('flash-alert') }}
     </div>
     @endif

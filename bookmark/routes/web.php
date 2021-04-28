@@ -57,4 +57,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/list', [ListController::class, 'show']);
     Route::get('/list/{slug}/add', [ListController::class, 'add']);
     Route::post('/list/{slug}/save', [ListController::class, 'save']);
+    Route::put('/list/{slug}/update', [ListController::class, 'update']);
+    Route::delete('/list/{slug}/destroy', [ListController::class, 'destroy']);
 });

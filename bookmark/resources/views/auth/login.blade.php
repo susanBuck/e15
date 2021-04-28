@@ -2,7 +2,8 @@
 
 @section('content')
 
-<h1>Login</h1>
+<h1 dusk='login-heading'>Login</h1>
+
 
 Don’t have an account? <a href='/register'>Register here...</a>
 
