@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use App\Models\Book;
 use App\Models\Author;
+use App\Actions\Book\StoreNewBook;
 
 class BookController extends Controller
 {
@@ -39,18 +40,9 @@ class BookController extends Controller
         ]
         );
 
-        $book = new Book();
-        $book->title = $request->title;
-        $book->slug = $request->slug;
-        $book->author_id = $request->author_id;
-        $book->published_year = $request->published_year;
-        $book->cover_url = $request->cover_url;
-        $book->info_url = $request->info_url;
-        $book->purchase_url = $request->purchase_url;
-        $book->description = $request->description;
-        $book->save();
+        $action = new StoreNewBook((object) $request->all());
         
-        return redirect('/books/create')->with(['flash-alert' => 'The book “'.$book->title.'” was added.']);
+        return redirect('/books/create')->with(['flash-alert' => 'The book “'.$action->results->title.'” was added.']);
     }
 
     /**

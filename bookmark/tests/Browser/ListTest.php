@@ -49,9 +49,14 @@ class ListTest extends DuskTestCase
     public function testAddingToList()
     {
         $this->browse(function (Browser $browser) {
-            $book = Book::factory()->create();
+
+            # A user to work with
             $user = User::factory()->create();
 
+            # A book the user can add to their list
+            $book = Book::factory()->create();
+            
+            # Some dummy text for the notes
             $notes = $this->faker->sentences(2, true);
 
             $browser->loginAs($user->id)
@@ -85,7 +90,7 @@ class ListTest extends DuskTestCase
     }
 
     /**
-     * @group focus
+     *
      */
     public function testRemovingFromList()
     {

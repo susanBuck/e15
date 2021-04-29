@@ -129,7 +129,7 @@ class BookTest extends DuskTestCase
     }
 
     /**
-     * @group focus
+     *
      */
     public function testUpdatingBook()
     {
