@@ -6,7 +6,7 @@
     <link href=data: , rel=icon>
 </head>
 <body>
-    <h1>Practice App...</h1>
+    <h1>Practice App</h1>
     <img src='images/hes-logo.png'>
 </body>
 </html>
