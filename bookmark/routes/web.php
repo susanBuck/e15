@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BookController;
+use App\Http\Controllers\PageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,10 +15,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return '<h1>Bookmark</h1>';
-});
+Route::get('/', [PageController::class, 'welcome']);
+Route::get('/contact', [PageController::class, 'contact']);
 
-Route::get('/example', function () {
-    return view('abc');
-});
+Route::get('/books', [BookController::class, 'index']);
+Route::get('/books/{title}', [BookController::class, 'show']);
+Route::get('/books/filter/{category}/{subcategory}', [BookController::class, 'filter']);
