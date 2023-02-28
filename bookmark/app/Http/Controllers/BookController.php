@@ -6,17 +6,25 @@ use Illuminate\Http\Request;
 
 class BookController extends Controller
 {
-    public function index() {
-        return 'Show all the books';
+    public function index()
+    {
+        # TODO: Query DB for all books
+        
+        //return view('books/index');
     }
 
-    public function show($title) {
-        # Query the database for the book where title = $title
-        # Load a view to display the book that we got from the database
-        return 'This is the details for the book: ' . $title;
+    public function show($title)
+    {
+        # TODO: Query the database for the book where title = $title
+
+        return view('books/show', [
+            'title' => $title,
+            'bookFound' => false
+        ]);
     }
 
-    public function filter($category, $subcategory) {
-        return $category . ',' . $subcategory;
+    public function filter($category, $subcategory)
+    {
+        return 'Show all books in these categories: ' . $category . ',' . $subcategory;
     }
 }
