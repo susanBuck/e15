@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 
 class PageController extends Controller
 {
+    /**
+     * GET /
+     */
     public function welcome()
     {
         # If there is data stored in the session as the results of doing a search
@@ -16,6 +19,9 @@ class PageController extends Controller
         ]);
     }
 
+    /**
+     * GET /contact
+     */
     public function contact()
     {
         return view('pages/contact');

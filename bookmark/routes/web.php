@@ -5,12 +5,15 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ListController;
+use App\Http\Controllers\PracticeController;
 
 /**
  * Misc
  */
 Route::get('/', [PageController::class, 'welcome']);
 Route::get('/contact', [PageController::class, 'contact']);
+Route::any('/practice/{n?}', [PracticeController::class, 'index']);
+
 
 # Filter route that was used to demonstrate working with multiple route parameters
 Route::get('/books/filter/{category}/{subcategory}', [BookController::class, 'filter']);

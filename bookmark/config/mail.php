@@ -2,6 +2,8 @@
 
 return [
 
+    'contact_email' => 'susanbuck@fas.harvard.edu',
+
     /*
     |--------------------------------------------------------------------------
     | Default Mailer
