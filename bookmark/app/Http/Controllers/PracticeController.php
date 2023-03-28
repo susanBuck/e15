@@ -3,17 +3,103 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Book;
 
 class PracticeController extends Controller
 {
     /**
-     * Testing DB connection
-     */
-    public function practice3()
+    * Demonstrating updating multiple rows of data
+    */
+    public function practice6()
     {
-        dump(\DB::select('SHOW DATABASES;'));
+        # First get books to update
+        $books = Book::where('author', '=', 'J.K. Rowling')->get();
+
+        if (!$books) {
+            dump("Book not found, can not update.");
+        } else {
+            foreach ($books as $book) {
+                # Change some properties
+                $book->author = 'JK Rowling';
+            
+                # Save the changes
+                $book->save();
+            }
+
+            dump('Update complete');
+        }
+
+        # Output books to confirm the above query worked as expected
+        dump(Book::all()->toArray());
     }
 
+    /**
+    * Demonstrating updating a single row of data
+    */
+    public function practice5()
+    {
+        # First get a book to update
+        $book = Book::where('author', '=', 'F. Scott Fitzgerald')->first();
+
+        if (!$book) {
+            dump("Book not found, can not update.");
+        } else {
+            # Change some properties
+            $book->title = 'The Really Great Gatsby';
+            $book->published_year = '2025';
+
+            # Save the changes
+            $book->save();
+
+            dump('Update complete');
+        }
+
+        # Output books to confirm the above query worked as expected
+        dump(Book::orderBy('published_year')->get()->toArray());
+    }
+
+    /**
+    * Demonstrating reading data
+    */
+    public function practice4()
+    {
+        $book = new Book();
+        $books = $book
+            ->where('title', 'LIKE', '%Harry Potter%')
+            ->orWhere('published_year', '>', 1998)
+            ->select('title')
+            ->get();
+
+        # Output books to confirm the above query worked as expected
+        dump($books->toArray());
+    }
+
+    /**
+    * Demonstrating creating data
+    */
+    public function practice3()
+    {
+        # Create a new instance of our Book model
+        $book = new Book();
+
+        # Set the properties for a new row
+        # Note how each property corresponds to a field in the table
+        $book->slug = 'the-martian';
+        $book->title = 'The Martian';
+        $book->author = 'Anthony Weir';
+        $book->published_year = 2011;
+        $book->cover_url = 'https://hes-bookmark.s3.amazonaws.com/the-martian.jpg';
+        $book->info_url = 'https://en.wikipedia.org/wiki/The_Martian_(Weir_novel)';
+        $book->purchase_url = 'https://www.barnesandnoble.com/w/the-martian-andy-weir/1114993828';
+        $book->description = 'The Martian is a 2011 science fiction novel written by Andy Weir. It was his debut novel under his own name. It was originally self-published in 2011; Crown Publishing purchased the rights and re-released it in 2014. The story follows an American astronaut, Mark Watney, as he becomes stranded alone on Mars in the year 2035 and must improvise in order to survive.';
+
+        # Persist the book to the database
+        $book->save();
+        
+        # Confirm results
+        dump('The book ' . $book->title . ' was added');
+        dump(Book::all()->toArray());
+    }
     /**
      * Example retrieving data from config
      */
@@ -61,7 +147,13 @@ class PracticeController extends Controller
             }
 
             # Load the view and pass it the array of methods
-            return view('practice')->with(['methods' => $methods]);
+            return view('practice')->with([
+                'methods' => $methods,
+                'books' => Book::all(),
+                'fields' => [
+                    'id', 'updated_at', 'created_at', 'slug', 'title', 'author', 'published_year'
+                ]
+            ]);
         }
     }
 }

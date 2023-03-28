@@ -24,7 +24,7 @@ return new class extends Migration {
             $table->string('title');
             $table->string('author');
             $table->smallInteger('published_year');
-            $table->string('cover_url')->nullable(); # Here we use a column modifier to specify this column can be left empty (null)
+            $table->string('cover_url')->nullable(); # Example of a column modifier to specify this field can be left empty (null)
             $table->string('info_url');
             $table->string('purchase_url');
             $table->text('description');
