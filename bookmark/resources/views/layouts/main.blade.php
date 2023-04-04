@@ -12,6 +12,12 @@
 </head>
 <body>
 
+@if(session('flash-alert'))
+    <div class='flash-alert'>
+        {{ session('flash-alert') }}
+    </div>
+@endif
+
 <header>
     <a href='/'><img src='/images/bookmark-logo@2x.png' id='logo' alt='bookmark Logo'></a>
 
@@ -19,6 +25,7 @@
         <ul>
             <li><a href='/'>Home</a></li>
             <li><a href='/books'>All Books</a></li>
+            <li><a href='/books/create'>Add a book</a></li>
             <li><a href='/list'>Your list</a></li>
             <li><a href='/contact'>Contact</a></li>
         </ul>

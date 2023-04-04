@@ -8,6 +8,60 @@ use App\Models\Book;
 class PracticeController extends Controller
 {
     /**
+    * Demonstrating Collections
+    */
+    public function practice8()
+    {
+        // $books = Book::all();
+
+        // # This will output a JSON string
+        // echo $books;
+
+        // $results = Book::all();
+        // dump($results); # Shows an object of type Illuminate\Database\Eloquent\Collection that contains multiple Book objects
+
+        // $results = Book::where('published_year', '>', 1990)->get();
+        // dump($results); # Shows an object of type Illuminate\Database\Eloquent\Collection that contains multiple Book objects
+
+        // # Even if our query finds just 1 result, *get* still yields a Collection, it'll just be a Collection of 1 object:
+        // $results = Book::where('title', '=', 'The Bell Jar')->get();
+        // dump($results); # Shows an object of type Illuminate\Database\Eloquent\Collection that contains 1 Book object
+
+        // # Similarly, if our query does not find any results, *get* still yields a Collection, it’ll just be empty
+        // $results = Book::where('author', '=', 'Amy Tan')->get();
+        // dump($results); # Empty collection
+
+        // # Even if we limit our query to 1 book, because we're using the *get* method, we will get a Collection in return
+        // $results = Book::limit(1)->get();
+
+        // $results = Book::first();
+        // dump($results); # Shows an object of type App\Models\Book
+
+        // $results = Book::find(1);
+        // dump($results); # Shows an object of type App\Models\Book
+    }
+    
+    /**
+    * Demonstrating deleting a single row of data
+    */
+    public function practice7()
+    {
+        # First get a book to delete
+        $book = Book::where('author', '=', 'F. Scott Fitzgerald')->first();
+
+        if (!$book) {
+            dump('Did not delete- Book not found.');
+        } else {
+            $book->delete();
+            dump('Deletion complete');
+        }
+
+        # Query for books by F. Scott Fitzgerald to confirm the above deletion worked as expected
+        # This should yield an empty array
+        dump(Book::where('author', '=', 'F. Scott Fitzgerald')->get()->toArray());
+    }
+
+    /**
     * Demonstrating updating multiple rows of data
     */
     public function practice6()
