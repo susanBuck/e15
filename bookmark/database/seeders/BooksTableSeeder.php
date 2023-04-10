@@ -6,6 +6,7 @@ use Illuminate\Database\Seeder;
 
 use Illuminate\Support\Str;
 use App\Models\Book; # Make our Book Model accessible
+use App\Models\Author;
 use Faker\Factory; # We’ll use this library to generate random/fake data
 
 class BooksTableSeeder extends Seeder
@@ -40,7 +41,7 @@ class BooksTableSeeder extends Seeder
         $book->updated_at = $book->created_at;
         $book->slug = 'the-martian';
         $book->title = 'The Martian';
-        $book->author = 'Anthony Weir';
+        $book->author_id = Author::where('last_name', '=', 'Weir')->pluck('id')->first();
         $book->published_year = 2011;
         $book->cover_url = 'https://hes-bookmark.s3.amazonaws.com/the-martian.jpg';
         $book->info_url = 'https://en.wikipedia.org/wiki/The_Martian_(Weir_novel)';
@@ -60,11 +61,19 @@ class BooksTableSeeder extends Seeder
         foreach ($books as $slug => $bookData) {
             $book = new Book();
 
+            # Extract just the last name from the book data...
+            # F. Scott Fitzgerald => ['F.', 'Scott', 'Fitzgerald'] => 'Fitzgerald'
+            $name = explode(' ', $bookData['author']);
+            $lastName = array_pop($name);
+
+            # Find that author in the authors table
+            $author_id = Author::where('last_name', '=', $lastName)->pluck('id')->first();
+
             $book->created_at = $this->faker->dateTimeThisMonth();
             $book->updated_at = $book->created_at;
             $book->slug = $slug;
             $book->title = $bookData['title'];
-            $book->author = $bookData['author'];
+            $book->author_id = $author_id;
             $book->published_year = $bookData['published_year'];
             $book->cover_url = $bookData['cover_url'];
             $book->info_url = $bookData['info_url'];
@@ -88,7 +97,7 @@ class BooksTableSeeder extends Seeder
             $book->updated_at =  $book->created_at;
             $book->title = Str::title($title);
             $book->slug = Str::slug($title, '-');
-            $book->author = $this->faker->firstName . ' ' . $this->faker->lastName;
+            $book->author_id = null;
             $book->published_year = $this->faker->year;
             $book->cover_url = 'https://hes-bookmark.s3.amazonaws.com/cover-placeholder.png';
             $book->info_url = 'https://en.wikipedia.org/wiki/' . $book->slug;

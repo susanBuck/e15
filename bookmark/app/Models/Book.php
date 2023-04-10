@@ -12,6 +12,16 @@ class Book extends Model
     /**
      *
      */
+    public function author()
+    {
+        # Book belongs to Author
+        # Define an inverse one-to-many relationship.
+        return $this->belongsTo('App\Models\Author');
+    }
+    
+    /**
+     *
+     */
     public static function findBySlug($slug)
     {
         return self::where('slug', '=', $slug)->first();

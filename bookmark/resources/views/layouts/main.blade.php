@@ -26,20 +26,25 @@
     <nav>
         <ul>
             <li><a href='/'>Home</a></li>
+
+            @if(Auth::user())
             <li><a href='/books'>All Books</a></li>
-            <li><a href='/books/create'>Add a book</a></li>
+            <li><a href='/books/create'>Add a Book</a></li>
             <li><a href='/list'>Your list</a></li>
+            @endif
+
             <li><a href='/contact'>Contact</a></li>
+            
             <li>
-            @if(!Auth::user())
+                @if(!Auth::user())
                 <a href='/login'>Login</a>
-            @else
+                @else
                 <form method='POST' id='logout' action='/logout'>
                     {{ csrf_field() }}
                     <a href='#' onClick='document.getElementById("logout").submit();'>Logout</a>
                 </form>
-            @endif
-        </li>
+                @endif
+            </li>
         </ul>
     </nav>
 </header>
