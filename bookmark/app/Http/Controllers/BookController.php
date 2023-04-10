@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use App\Models\Book;
+use App\Models\Author;
 
 class BookController extends Controller
 {
@@ -14,7 +15,12 @@ class BookController extends Controller
     */
     public function create(Request $request)
     {
-        return view('books/create');
+        # Get data for authors in alphabetical order by last name
+        $authors = Author::orderBy('last_name')->select(['id', 'first_name', 'last_name'])->get();
+
+        return view('books/create', [
+            'authors' => $authors
+        ]);
     }
 
     /**
@@ -30,7 +36,7 @@ class BookController extends Controller
         $request->validate([
             'title' => 'required|max:255',
             'slug' => 'required|unique:books,slug',
-            'author' => 'required|max:255',
+            'author_id' => 'required',
             'published_year' => 'required|digits:4',
             'cover_url' => 'required|url',
             'info_url' => 'required|url',
@@ -44,7 +50,7 @@ class BookController extends Controller
         $book = new Book();
         $book->title = $request->title;
         $book->slug = $request->slug;
-        $book->author = $request->author;
+        $book->author_id = $request->author_id;
         $book->published_year = $request->published_year;
         $book->cover_url = $request->cover_url;
         $book->info_url = $request->info_url;
