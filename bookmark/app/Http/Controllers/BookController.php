@@ -68,18 +68,12 @@ class BookController extends Controller
 
         # If validation fails it will redirect back to `/`
 
-        $bookData = file_get_contents(database_path('books.json'));
-        $books = json_decode($bookData, true);
-
+        # Get form data
         $searchType = $request->input('searchType', 'title');
         $searchTerms = $request->input('searchTerms', '');
-        $searchResults = [];
-    
-        foreach ($books as $slug => $book) {
-            if (strtolower($book[$searchType]) == strtolower($searchTerms)) {
-                $searchResults[$slug] = $book;
-            }
-        }
+
+        # Do the search
+        $searchResults = Book::where($searchType, 'LIKE', '%' . $searchTerms . '%')->get();
 
         # Redirect back to the form with data/results stored in the session
         # Ref: https://laravel.com/docs/responses#redirecting-with-flashed-session-data
@@ -164,6 +158,38 @@ class BookController extends Controller
         $book->save();
 
         return redirect('/books/'.$slug.'/edit')->with(['flash-alert' => 'Your changes were saved.']);
+    }
+
+     /**
+    * Asks user to confirm they want to delete the book
+    * GET /books/{slug}/delete
+    */
+    public function delete($slug)
+    {
+        $book = Book::findBySlug($slug);
+
+        if (!$book) {
+            return redirect('/books')->with([
+                'flash-alert' => 'Book not found'
+            ]);
+        }
+
+        return view('books/delete', ['book' => $book]);
+    }
+
+    /**
+    * Deletes the book
+    * DELETE /books/{slug}/delete
+    */
+    public function destroy($slug)
+    {
+        $book = Book::findBySlug($slug);
+
+        $book->delete();
+
+        return redirect('/books')->with([
+            'flash-alert' => '“' . $book->title . '” was removed.'
+        ]);
     }
 
     /**
