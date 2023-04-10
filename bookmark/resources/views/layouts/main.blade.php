@@ -30,6 +30,16 @@
             <li><a href='/books/create'>Add a book</a></li>
             <li><a href='/list'>Your list</a></li>
             <li><a href='/contact'>Contact</a></li>
+            <li>
+            @if(!Auth::user())
+                <a href='/login'>Login</a>
+            @else
+                <form method='POST' id='logout' action='/logout'>
+                    {{ csrf_field() }}
+                    <a href='#' onClick='document.getElementById("logout").submit();'>Logout</a>
+                </form>
+            @endif
+        </li>
         </ul>
     </nav>
 </header>
