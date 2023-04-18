@@ -53,13 +53,17 @@ Route::group(['middleware' => 'auth'], function () {
     Route::delete('/books/{slug}', [BookController::class, 'destroy']);
 
     /**
+     * List
+     */
+    Route::get('/list', [ListController::class, 'show']);
+    Route::get('/list/{slug}/add', [ListController::class, 'add']);
+    Route::post('/list/{slug}/save', [ListController::class, 'save']);
+    Route::put('/list/{slug}/update', [ListController::class, 'update']);
+    Route::delete('/list/{slug}/destroy', [ListController::class, 'destroy']);
+
+
+    /**
      * Books - Misc
      */
     Route::get('/search', [BookController::class, 'search']);
 });
-
-
-/**
- * Lists
- */
-Route::get('/list', [ListController::class, 'show']);

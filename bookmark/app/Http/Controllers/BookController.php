@@ -110,12 +110,15 @@ class BookController extends Controller
      * GET /books/{slug}
      * Show an individual book searching by slug
      */
-    public function show($slug)
+    public function show(Request $request, $slug)
     {
         $book = Book::where('slug', '=', $slug)->first();
 
+        $onList = $book->users()->where('user_id', $request->user()->id)->count() >= 1;
+
         return view('books/show', [
             'book' => $book,
+            'onList' => $onList
         ]);
     }
 
