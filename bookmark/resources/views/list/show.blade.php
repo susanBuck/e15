@@ -38,8 +38,7 @@ Your List
                 Added {{ $book->pivot->created_at->diffForHumans() }}
             </p>
 
-            {{-- TODO: Finish the “Remove from list” feature --}}
-            <a href='#'><i class='fa fa-minus-circle'></i> Remove from your list</a>
+            @include('includes/remove-from-list')
         </div>
     @endforeach
 
