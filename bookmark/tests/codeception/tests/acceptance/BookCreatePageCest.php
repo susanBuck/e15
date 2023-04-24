@@ -20,7 +20,8 @@ class BookCreatePageCest
 
         # Act
         $I->amOnPage('/books/create');
-        $I->fillField('[test=title-input]', 'Test Book');
+        $title = 'Test Book';
+        $I->fillField('[test=title-input]', $title);
         $I->fillField('[test=slug-input]', 'test-book');
         $I->selectOption('[test=author-dropdown]', 1);
         $I->fillField('[test=published-year-input]', 2000);
@@ -31,7 +32,7 @@ class BookCreatePageCest
         $I->click('[test=submit-button]');
 
         # Afferm
-        $I->see('Your book was added');
+        $I->see('Your book ' . $title . ' was added');
         $I->amOnPage('/books/test-book');
         $I->see('Test Book');
     }
