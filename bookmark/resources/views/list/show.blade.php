@@ -11,7 +11,7 @@ Your List
 @section('content')
 
 @if($books->count() == 0)
-    <p>You have not added any books to your list yet.</p>
+    <p test='no-books-message'>You have not added any books to your list yet.</p>
     <p><a href='/books'>Find books to add in our library...</a></p>
 @else
 
@@ -28,10 +28,11 @@ Your List
             {{-- In the following code, observe how `$book->pivot` is used to access 
             details (`created_at` and `notes`) from the book to user relationship --}}
             
-            <form method='POST' action='#'>
-                <textarea class='notes'>{{ $book->pivot->notes }}</textarea>
-                <input type='submit' class='btn btn-primary' value='Update notes'>
-                {{-- TODO: Finish the update note feature --}}
+            <form method='POST' action='/list/{{ $book->slug }}/update'>
+                {{ csrf_field() }}
+                {{ method_field('put') }}
+                <textarea class='notes' name='notes' test='{{ $book->slug }}-notes-textarea'>{{ $book->pivot->notes }}</textarea>
+                <button type='submit' class='btn btn-primary' test='{{ $book->slug }}-update-button'>Update notes</button>
             </form>
 
             <p class='added'>

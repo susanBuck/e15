@@ -114,6 +114,10 @@ class BookController extends Controller
     {
         $book = Book::where('slug', '=', $slug)->first();
 
+        if (!$book) {
+            return redirect('/books')->with(['flash-alert' => 'Book not found.']);
+        }
+
         $onList = $book->users()->where('user_id', $request->user()->id)->count() >= 1;
 
         return view('books/show', [
@@ -122,19 +126,22 @@ class BookController extends Controller
         ]);
     }
 
-    /**
+     /**
     * GET /books/{slug}/edit
     */
     public function edit(Request $request, $slug)
     {
         $book = Book::where('slug', '=', $slug)->first();
-
+    
+        $authors = Author::getForDropdown();
+        
         if (!$book) {
             return redirect('/books')->with(['flash-alert' => 'Book not found.']);
         }
 
         return view('books/edit', [
             'book' => $book,
+            'authors' => $authors
         ]);
     }
 
@@ -153,7 +160,7 @@ class BookController extends Controller
             'cover_url' => 'url',
             'info_url' => 'url',
             'purchase_url' => 'required|url',
-            'description' => 'required|min:255'
+            'description' => 'required|min:100'
         ]);
 
         $book->title = $request->title;

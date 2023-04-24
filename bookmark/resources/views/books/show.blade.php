@@ -26,8 +26,8 @@ Book not found. <a href='/books'>Check out the other books in our library...</a>
 </p>
 
 <ul class='bookActions'>
-    <li><a href='/books/{{ $book->slug }}/edit'><i class="fa fa-edit"></i> Edit</a>
-    <li><a href='/books/{{ $book->slug }}/delete'><i class="fa fa-trash"></i> Delete</a>
+    <li><a href='/books/{{ $book->slug }}/edit'><i class='fa fa-edit'></i> Edit</a>
+    <li><a href='/books/{{ $book->slug }}/delete' test='delete-button'><i class="fa fa-trash"></i> Delete</a>
 
     @if($onList)
     <li>
